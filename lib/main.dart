@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'activities/details/activity_details_page.dart';
 import 'activities/details/bloc/activity_details_bloc.dart';
@@ -18,7 +19,7 @@ import 'db/file_manager.dart';
 import 'generated/i18n.dart';
 import 'login/bloc/login_bloc.dart';
 import 'login/login_page.dart';
-import 'login/repository/login_persister.dart';
+import 'login/persister/sqlite_login_persister.dart';
 import 'login/repository/sqlite_login_helper.dart';
 import 'login/repository/sqlite_login_repository.dart';
 import 'navigation/custom_navigator.dart';
@@ -26,7 +27,9 @@ import 'navigation/navigator_widget.dart';
 import 'registration/bloc/registration_bloc.dart';
 import 'registration/registration_page.dart';
 
-Future<void> main() async => runApp(MyApp());
+Future<void> main() async {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
@@ -44,7 +47,7 @@ class MyApp extends StatelessWidget {
             create: (context) => LoginBloc(
                 SqLiteLoginRepository(
                     SqLiteLoginHelper(DatabaseProvider(), FileManager()),
-                    LoginPersister()),
+                    SqliteLoginPersister(SharedPreferences.getInstance())),
                 CustomNavigator(_navigatorKey)),
             child: LoginPage()),
         AppRoutes.activitiesList: (context) => BlocProvider(
@@ -53,7 +56,7 @@ class MyApp extends StatelessWidget {
                     SqliteActivitiesHelper(DatabaseProvider(), FileManager())),
                 SqLiteLoginRepository(
                     SqLiteLoginHelper(DatabaseProvider(), FileManager()),
-                    LoginPersister()),
+                    SqliteLoginPersister(SharedPreferences.getInstance())),
                 CustomNavigator(_navigatorKey))
               ..add(Fetch()),
             child: ActivitiesPage()),
@@ -61,7 +64,7 @@ class MyApp extends StatelessWidget {
             create: (context) => RegistrationBloc(
                 SqLiteLoginRepository(
                     SqLiteLoginHelper(DatabaseProvider(), FileManager()),
-                    LoginPersister()),
+                    SqliteLoginPersister(SharedPreferences.getInstance())),
                 CustomNavigator(_navigatorKey)),
             child: RegistrationPage())
       },
@@ -88,7 +91,8 @@ class MyApp extends StatelessWidget {
                         SqLiteLoginRepository(
                             SqLiteLoginHelper(
                                 DatabaseProvider(), FileManager()),
-                            LoginPersister()),
+                            SqliteLoginPersister(
+                                SharedPreferences.getInstance())),
                         CustomNavigator(_navigatorKey));
                     if (settings.arguments != null &&
                         settings.arguments is Activity) {
@@ -103,14 +107,14 @@ class MyApp extends StatelessWidget {
                 create: (context) => LoginBloc(
                     SqLiteLoginRepository(
                         SqLiteLoginHelper(DatabaseProvider(), FileManager()),
-                        LoginPersister()),
+                        SqliteLoginPersister(SharedPreferences.getInstance())),
                     CustomNavigator(_navigatorKey)),
                 child: LoginPage()));
       },
       navigatorKey: _navigatorKey,
       home: NavigatorWidget(
         customNavigator: CustomNavigator(_navigatorKey),
-        loginPersister: LoginPersister(),
+        loginPersister: SqliteLoginPersister(SharedPreferences.getInstance()),
         fileManager: FileManager(),
       ));
 }

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:mockito/mockito.dart';
 import 'package:teamgoflutterapp/login/repository/db_user.dart';
 import 'package:teamgoflutterapp/login/repository/sqlite_login_helper.dart';
-import 'package:teamgoflutterapp/login/repository/login_persister.dart';
+import 'package:teamgoflutterapp/login/persister/login_persister.dart';
 import 'package:teamgoflutterapp/login/repository/sqlite_login_repository.dart';
 import 'package:test/test.dart';
 

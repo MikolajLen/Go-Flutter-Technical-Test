@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import 'login_persister.dart';
+import '../persister/login_persister.dart';
 import 'login_repository.dart';
 import 'sqlite_login_helper.dart';
 

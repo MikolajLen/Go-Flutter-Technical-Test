@@ -54,14 +54,14 @@ void main() {
 
     test('should fetch all activities and close db', () async {
       //given
-      when(db.rawQuery(SqliteActivitiesHelper.FETACH_ALL_ACTIVITIES_QUERY))
+      when(db.rawQuery(SqliteActivitiesHelper.fetchAllActivitiesQuery))
           .thenAnswer((_) => Future.value(response));
 
       //when
       final result = await sqliteActivitiesHelper.fetchActivities();
 
       //then
-      verify(db.rawQuery(SqliteActivitiesHelper.FETACH_ALL_ACTIVITIES_QUERY));
+      verify(db.rawQuery(SqliteActivitiesHelper.fetchAllActivitiesQuery));
       verify(db.close());
       verifyAllFieldsAreSet(result[0]);
     });

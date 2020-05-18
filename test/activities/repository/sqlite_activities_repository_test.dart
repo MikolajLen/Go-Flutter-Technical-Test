@@ -27,7 +27,7 @@ void main() {
       repository.fetchActivity(12);
 
       //then
-      verify(helper.fetchActivity(12));
+      verify(helper.fetchActivity(12.toString()));
     });
 
     test('should insert new activity', () async {

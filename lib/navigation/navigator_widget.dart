@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../db/file_manager.dart';
-import '../login/repository/login_persister.dart';
+import '../login/persister/login_persister.dart';
 import '../main.dart';
 import 'custom_navigator.dart';
 import 'navigation_event.dart';
