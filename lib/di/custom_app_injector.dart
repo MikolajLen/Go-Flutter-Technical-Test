@@ -1,6 +1,6 @@
 import 'package:inject/inject.dart';
 import '../main.dart';
-import 'custom_app_injector.inject.dart' as g;
+import 'custom_app_injector.inject.dart' as injector;
 
 @Injector()
 abstract class CustomAppInjector {
@@ -9,6 +9,6 @@ abstract class CustomAppInjector {
   MyApp get app;
 
   static Future<CustomAppInjector> create() {
-    return g.CustomAppInjector$Injector.create();
+    return injector.CustomAppInjector$Injector.create();
   }
 }
